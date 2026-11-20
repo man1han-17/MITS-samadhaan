@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: mits-samadhan
+    runtime: python
+    rootDir: web
+    plan: starter
+    buildCommand: python -c "compile(open('server.py', encoding='utf-8').read(), 'server.py', 'exec')"
+    startCommand: python server.py
+    healthCheckPath: /
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: MITS_DATA_DIR
+        value: /var/data
+      - key: MITS_SECURE_COOKIE
+        value: "1"
+      - key: MITS_SETUP_KEY
+        sync: false
+    disk:
+      name: mits-samadhan-data
+      mountPath: /var/data
+      sizeGB: 1
